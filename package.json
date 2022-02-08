@@ -1,0 +1,39 @@
+{
+  "name": "movie_api5",
+  "version": "1.0.0",
+  "description": "This is Task  2.10 Authorization and Authentication  (10/10/2021)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: n test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xurros/movie_api4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "engines": "<node14.5.0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xurros/movie_api4/issues"
+  },
+  "homepage": "https://github.com/xurros/movie_api4#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.8.0",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.2.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "uuid": "^8.3.2"
+  }
+}

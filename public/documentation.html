@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>2.8 Documentation Page</title>
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <!-- <link href="css/style.css" rel="stylesheet"> -->
+  <link href="css/style3.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <h1>2.8: mymovieDB Documentation</h1>
+  <p> Ingredients: MongoDB, Mongoose, Restful API, Nodejs</p>
+
+  <table class="myTimetable">
+    <thead>
+      <tr class="zero">
+        <th>Business Logic</th>
+        <th>URL</th>
+        <th>HTTP Method</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr class="one">
+        <td>
+          <div class="program">Get the list of the movies</div>
+        </td>
+        <td>
+          <div class="program">/movies</div>
+        </td>
+        <td>
+          <div class="program">GET</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding the data of the list of ALL movies</div>
+        </td>
+      </tr>
+
+      <tr class="two">
+        <td>
+          <div class="program">Get the data (details, director, genre, imagePath URL, Featured) of a single movie based
+            on its title</div>
+        </td>
+        <td>
+          <div class="program">/movies/[Title]</div>
+        </td>
+        <td>
+          <div class="program">GET</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of A SINGLE movie from the list like:</div>
+          <div class="program">{</div>
+          <div class="program">id: </div>
+          <div class="program">Title: "The Godfather"</div>
+          <div class="program">Details: "An organized crime dynasty's aging patriarch transfers control of his
+            clandestine empire to his reluctant son."</div>
+          <div class="program">Genre: "Drama"</div>
+          <div class="program">Actors: ["Marlon Brando", "Al Pacino"]</div>
+          <div class="program">Director: ["Francis Ford Coppola"]</div>
+          <div class="program">IMDb: "9.2"</div>
+          <div class="program">Released: "1972"</div>
+          <div class="program">ImagePath:</div>
+          <div>"https://www.imdb.com/title/tt1084950"</div>
+          <div class="program">Featured: true</div>
+          <div class="program">}</div>
+        </td>
+      </tr>
+
+      <tr class="three">
+        <td>
+          <div class="program">Get the description of the genre</div>
+        </td>
+        <td>
+          <div class="program">/genres/[Genre}]</div>
+        </td>
+        <td>
+          <div class="program">GET</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">
+            A JSON object holding data of the description of the specific genre like:
+          </div>
+          <div class="program">{</div>
+          <div class="program">id: "612f26c55a6c039dcd860c7d"</div>
+          <div class="program">Category: "Comedy"</div>
+          <div class="program">Description: "A category of film in which the main emphasis is on humor."</div>
+          <div class="program">}</div>
+        </td>
+      </tr>
+
+      <tr class="four">
+        <td>
+          <div class="program">Get a single director's details based on the name</div>
+        </td>
+        <td>
+          <div class="program">/directors/[Name]</div>
+        </td>
+        <td>
+          <div class="program">GET</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of one specific director</div>
+        </td>
+      </tr>
+
+      <tr class="five">
+        <td>
+          <div class="program">Add A New User</div>
+        </td>
+        <td>
+          <div class="program">/users</div>
+        </td>
+        <td>
+          <div class="program">POST</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of a new user</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of a new user like:</div>
+          <div class="program">{</div>
+          <div class="program">id: "613d386fbbc5814718c4f623"</div>
+          <div class="program">Username: "sandra"</div>
+          <div class="program">Email: "sandra@gmail.com"</div>
+          <div class="program">Password: "newuser1"</div>
+          <div class="program">FavoriteMovies: []</div>
+          <div class="program">"__v": 0 </div>
+          <div class="program">}</div>
+        </td>
+      </tr>
+
+      <tr class="six">
+        <td>
+          <div class="program">Update User Info based on Username (updating password)</div>
+        </td>
+        <td>
+          <div class="program">/users/[Username]</div>
+        </td>
+        <td>
+          <div class="program">PUT</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of a new user like::</div>
+          <div class="program">{</div>
+          <div class="program">id: "613d386fbbc5814718c4f623"</div>
+          <div class="program">Username: "sandra"</div>
+          <div class="program">Email: "sandra@gmail.com"</div>
+          <div class="program">Password: "newpassword1"</div>
+          <div class="program">FavoriteMovies: []</div>
+          <div class="program">"__v": 0 </div>
+          <div class="program">}</div>
+        </td>
+      </tr>
+
+      <tr class="seven">
+        <td>
+          <div class="program">Add the movie by Title</div>
+        </td>
+        <td>
+          <div class="program">users/[Username]/movies/[Title]</div>
+        </td>
+        <td>
+          <div class="program">POST</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of a new user like::</div>
+          <div class="program">{</div>
+          <div class="program">"_id": "613d493391aeeb822fe50f56",</div>
+          <div class="program">"Username": "mike",</div>
+          <div class="program">"Email": "michaels@yahoo.com",</div>
+          <div class="program">"Password": "user6",</div>
+          <div class="program">"FavoriteMovies": [</div>
+          <div class="program">"My Neighbor Totoro",</div>
+          <div class="program">"The Manchurian Candidate",</div>
+          <div class="program">"The Sixth Sense",</div>
+          <div class="program">"The Godfather"</div>
+          <div class="program">]</div>
+          <div class="program">}</div>
+        </td>
+      </tr>
+
+      <tr class="eight">
+        <td>
+          <div class="program">Remove a movie from the user's list</div>
+        </td>
+        <td>
+          <div class="program">users/[Username]/movies/[Title] </div>
+        </td>
+        <td>
+          <div class="program">DELETE</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A JSON object holding data of a new user like::</div>
+          <div class="program">{</div>
+          <div class="program">"_id": "613d493391aeeb822fe50f56",</div>
+          <div class="program">"Username": "mike",</div>
+          <div class="program">"Email": "michaels@yahoo.com",</div>
+          <div class="program">"Password": "user6",</div>
+          <div class="program">"FavoriteMovies": [</div>
+          <div class="program">"My Neighbor Totoro",</div>
+          <div class="program">"The Manchurian Candidate",</div>
+          <div class="program">"The Sixth Sense",</div>
+          <div class="program">]</div>
+          <div class="program">}</div>
+        </td>
+      </tr>
+
+      <tr class="nine">d
+        <td>
+          <div class="program">Allow User to deregister/ DELETE User</div>
+        </td>
+        <td>
+          <div class="program">/users/[Username]</div>
+        </td>
+        <td>
+          <div class="program">DELETE</div>
+        </td>
+        <td>
+          <div class="program">None</div>
+        </td>
+        <td>
+          <div class="program">A message says: "the user was deleted." </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>

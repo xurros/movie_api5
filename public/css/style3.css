@@ -1,0 +1,116 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Josefin Sans", sans-serif;
+  background-size: cover;
+  resize: both;
+  overflow:scroll;
+  padding: 5px;
+}
+
+h1 {
+  color: #312D28;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  font-size: 24px;
+  text-align: left;
+  margin-left: 80px;
+}
+p {
+  padding: 5px;
+  margin-left: 80px;
+}
+
+th{
+  font-weight: 400;
+  font-size: 18px;
+  padding: 15px;
+}
+
+td .program,
+div {
+  font-weight: 350;
+}
+.myTimetable {
+  width:100%;
+  border-collapse: separate;
+  table-layout: fixed;
+  border-spacing: 0.005em;
+  padding-right: 80px;
+  margin-bottom: 40px;
+}
+
+.myTimetable thead{
+  color: #060606;
+  /* color: #D0C1A1; */
+}
+
+.myTimetable tbody {
+  background-color: #B2A58D;
+}
+
+.myTimetable td{
+  border: 0.3px solid white;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.myTimetable tbody tr td:first-child {
+  background-color: #A0B5C3;
+  /* #C3C3A0 */
+  font-weight: 300;
+  color: #1A1918;
+}
+
+.program {
+  font-size: 11pt;
+  margin-bottom:4px;
+  font-weight: 400;
+  line-height: 1.2rem;
+  text-align: left;
+}
+
+
+table {
+    border-collapse: separate;
+    padding: 30px 20px 20px 80px;
+    border-spacing: 15px;
+    border-collapse: collapse;
+    margin-right: 40px;
+}
+
+tbody tr:hover {
+     background-color: #D6CFBA;
+}
+
+td {
+  height: 50px;
+  vertical-align: middle;
+}
+
+caption {
+    caption-side: top;
+    text-align: right;
+}
+
+.two,
+.four,
+.six,
+.eight {
+    background-color: #D1AB70;
+}
+
+
+.footer {
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(71, 120, 82, 0.7);
+}
+
+.footer a{
+  color: white;
+  font-size: 18pt;
+}
