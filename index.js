@@ -76,15 +76,14 @@ require('./passport');
 // app.use(passport.initialize());
 
 //GET requests
-app.use("/", express.static("public"));
+app.use("/", express.static(path.join(__dirname, "public")));
 
 const { check, validationResult } = require('express-validator');
-
 
 //  GET/READ REQUEST LIST======
 //  to get a welcome page====
 app.get("/", (req, res) => {
-  res.send("<h1>Hello! Welcome to myhoneypotflixDB</h1>");
+  res.send("<h4>Welcome to honeypotflix</h4>");
 });
 
 //  #1. to get the data on ALL movies ====
@@ -184,7 +183,8 @@ app.get("/users", (req, res) => {
 
 // #7.to get users by Name
 app.get(
-  "/users/:Username", passport.authenticate("jwt", { session: false }),
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
@@ -288,7 +288,8 @@ app.post("/users",
 
 // #10. to add a movie to users favorite list =====
 app.post(
-  "/users/:Username/movies/:Title", passport.authenticate("jwt", { session: false }),
+  "/users/:Username/movies/:Title",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
       { Username: req.params.Username },
@@ -307,7 +308,8 @@ app.post(
 // ERASE LISTS ========
 // #11. to Delete a movie from the favorite list by title =====
 app.delete(
-  "/users/:Username/movies/:Title", passport.authenticate("jwt", { session: false }),
+  "/users/:Username/movies/:Title",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
       { Username: req.params.Username },
@@ -325,7 +327,8 @@ app.delete(
 
 // #12. to delete a user by username =====
 app.delete(
-  "/users/:Username", passport.authenticate("jwt", { session: false }),
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
       .then((user) => {
