@@ -66,7 +66,7 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 // mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "http://testsite.com"];
+let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
