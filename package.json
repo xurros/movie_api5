@@ -1,6 +1,6 @@
 {
   "name": "movie_api5",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "description": "This is Task  2.10 Authorization and Authentication  (10/10/2021)",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "express": "^4.17.2",
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongodb": "^4.3.1",
     "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
