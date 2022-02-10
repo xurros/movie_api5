@@ -10,6 +10,7 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // require('dotenv').config();
 
+const app = express();
 
 // Schema file
 const Models = require("./models.js");
@@ -18,6 +19,38 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
 const Genres = Models.Genre;
+
+//CORS all domain access
+app.use(cors());
+
+/* If you want to give some domains to access the server : 
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            //If a specific origin isn't found on the list of allowed origins
+            let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+})); */
+
+let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "http://testsite.com"];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
+// to fetch static files =====
+// app.use("/documentation", express.static("public"));
 
 //Connect to the server you created
 const mongouri = process.env.MONGODB_URI;
@@ -45,7 +78,6 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 // mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-const app = express();
 //  process data sent through an HTTP request body  - using bodyParser=====
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -53,20 +85,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("common"));
 app.use(express.json());
 
-let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "http://testsite.com"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
 
-// to fetch static files =====
-// app.use("/documentation", express.static("public"));
 
 
 // Authentication process 2.9
