@@ -1,6 +1,5 @@
 const jwtSecret = "your_jwt_secret";
 
-const { Router } = require("express");
 const jwt = require("jsonwebtoken"),
   passport = require("passport");
 
