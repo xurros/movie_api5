@@ -6,6 +6,14 @@ const uuid = require("uuid");
 const morgan = require("morgan");
 
 const app = express();
+//  process data sent through an HTTP request body  - using bodyParser=====
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+// use middleware to log HTTP requests and errors =====
+app.use(morgan("common"));
+app.use(express.json());
+
 //integrating mongoose with REST API
 const cors = require("cors");
 const { check, validationResult } = require("express-validator");
@@ -70,13 +78,7 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 // app.use("/documentation", express.static("public"));
 
 
-//  process data sent through an HTTP request body  - using bodyParser=====
-app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-// use middleware to log HTTP requests and errors =====
-app.use(morgan("common"));
-app.use(express.json());
 
 
 // Authentication process 2.9
@@ -86,7 +88,7 @@ require('./passport');
 app.use(passport.initialize());
 
 //GET requests
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/", express.static("public"));
 
 
 //  GET/READ REQUEST LIST======
