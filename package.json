@@ -36,6 +36,7 @@
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "postman-collection-transformer": "^4.1.4",
     "uuid": "^8.3.2"
   }
 }
