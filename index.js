@@ -1,24 +1,14 @@
 // platforms needed =====
 const express = require("express");
-const morgan = require("morgan");
+const path = require("path");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
-//integrating mongoose with REST API
-const cors = require("cors");
-const mongoose = require("mongoose");
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') });
-// require('dotenv').config();
+const morgan = require("morgan");
 
 const app = express();
-
-// Schema file
-const Models = require("./models.js");
-// Schemas
-const Movies = Models.Movie;
-const Users = Models.User;
-const Directors = Models.Director;
-const Genres = Models.Genre;
+//integrating mongoose with REST API
+const cors = require("cors");
+const { check, validationResult } = require("express-validator");
 
 //CORS all domain access
 app.use(cors());
@@ -37,6 +27,45 @@ app.use(cors({
     }
 })); */
 
+const mongoose = require("mongoose");
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+// require('dotenv').config();
+
+
+// Schema file
+const Models = require("./models.js");
+// Schemas
+const Movies = Models.Movie;
+const Users = Models.User;
+const Directors = Models.Director;
+const Genres = Models.Genre;
+
+
+//Connect to the server you created
+const mongouri = process.env.MONGODB_URI;
+
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
+
+// mongoose.connect('mongodb://localhost:27017/mymovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true, useUnifiedTopology: true
+  });
+
+// mongoose.connect("mongodb://localhost:27017/mymovieDB",
+// {
+//   useNewUrlParser: true, useUnifiedTopology: true
+// });
+
+// mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
 let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "http://testsite.com"];
 app.use(cors({
   origin: (origin, callback) => {
@@ -52,40 +81,14 @@ app.use(cors({
 // to fetch static files =====
 // app.use("/documentation", express.static("public"));
 
-//Connect to the server you created
-const mongouri = process.env.MONGODB_URI;
-
-
-// mongoose.connect(process.env.CONNECTION_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-// mongoose.connect('mongodb://localhost:27017/mymovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-// mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true, useUnifiedTopology: true
-  });
-
-// mongoose.connect("mongodb://localhost:27017/mymovieDB",
-// {
-//   useNewUrlParser: true, useUnifiedTopology: true
-// });
-
-// mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 //  process data sent through an HTTP request body  - using bodyParser=====
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 // use middleware to log HTTP requests and errors =====
 app.use(morgan("common"));
 app.use(express.json());
-
-
 
 
 // Authentication process 2.9
@@ -97,7 +100,6 @@ require('./passport');
 //GET requests
 app.use("/", express.static(path.join(__dirname, "public")));
 
-const { check, validationResult } = require('express-validator');
 
 //  GET/READ REQUEST LIST======
 //  to get a welcome page====
