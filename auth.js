@@ -1,5 +1,6 @@
 const jwtSecret = "your_jwt_secret";
 
+const { Router } = require("express");
 const jwt = require("jsonwebtoken"),
   passport = require("passport");
 
@@ -8,9 +9,12 @@ require("./passport");
 
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
+    // this is the username that is encoded in the JWT
     subject: user.Username,
-    expiresIn: "7d",
-    algorithm: "HS256"
+    // this specifies that the token will expire in 7 days
+    expiresIn: '7d',
+    // this is the algorithm used to sign oder encode the values of the JWT
+    algorithm: 'HS256'
   });
 }
 
