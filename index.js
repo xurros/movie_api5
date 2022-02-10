@@ -11,21 +11,21 @@ const cors = require("cors");
 const { check, validationResult } = require("express-validator");
 
 //CORS all domain access
-app.use(cors());
+// app.use(cors());
+// If you want to give some domains to access the server : 
 
-/* If you want to give some domains to access the server : 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
 app.use(cors({
-    origin: (origin, callback) => {
-        if(!origin) return callback(null, true);
-        if(allowedOrigins.indexOf(origin) === -1){
-            //If a specific origin isn't found on the list of allowed origins
-            let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-            return callback(new Error(message), false);
-        }
-        return callback(null, true);
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      //If a specific origin isn't found on the list of allowed origins
+      let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+      return callback(new Error(message), false);
     }
-})); */
+    return callback(null, true);
+  }
+}));
 
 const mongoose = require("mongoose");
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
@@ -63,20 +63,8 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 //   useNewUrlParser: true, useUnifiedTopology: true
 // });
 
-// mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
+// mongoose.connect('process.env.CONNECTION_URI',
+//   { useNewUrlParser: true, useUnifiedTopology: true });
 
 // to fetch static files =====
 // app.use("/documentation", express.static("public"));
@@ -95,7 +83,7 @@ app.use(express.json());
 let auth = require("./auth")(app);
 const passport = require('passport');
 require('./passport');
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
 //GET requests
 app.use("/", express.static(path.join(__dirname, "public")));
@@ -263,14 +251,12 @@ app.put(
 
 //  CREATE LISTS =======
 // #9. allow users to register/add new user  =========
-app.post("/users",
-  [
-    check("Username", "Username is required").isLength({ min: 6 }),
-    check("Username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid.").isEmail()
-  ],
-
+app.post("/users", [
+  check("Username", "Username is required").isLength({ min: 6 }),
+  check("Username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+  check("Password", "Password is required").not().isEmpty(),
+  check("Email", "Email does not appear to be valid.").isEmail()
+],
   (req, res) => {
 
     let errors = validationResult(req);
