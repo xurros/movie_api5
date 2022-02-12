@@ -21,6 +21,9 @@ const { check, validationResult } = require("express-validator");
 //CORS all domain access
 // app.use(cors());
 // If you want to give some domains to access the server : 
+// require('./auth')(app);
+// require("dotenv").config();
+
 
 let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
 app.use(cors({
@@ -43,28 +46,27 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // Schema file
 const Models = require("./models.js");
 // Schemas
-const Movies = Models.Movie;
-const Users = Models.User;
-const Directors = Models.Director;
-const Genres = Models.Genre;
+const Movies = Models.Movies;
+const Users = Models.Users;
+const Directors = Models.Directors;
+const Genres = Models.Genres;
 
 
 //Connect to the server you created
 const mongouri = process.env.MONGODB_URI;
 
-// mongoose.connect(process.env.CONNECTION_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 // mongoose.connect('mongodb://localhost:27017/mymovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true, useUnifiedTopology: true
-  });
+// mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
+//   { useNewUrlParser: true, useUnifiedTopology: true
+//   });
 
 // mongoose.connect("mongodb://localhost:27017/mymovieDB",
 // {
@@ -79,13 +81,11 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 
 
 
-
-
 // Authentication process 2.9
 let auth = require("./auth")(app);
 const passport = require('passport');
 require('./passport');
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 //GET requests
 app.use("/", express.static("public"));
@@ -180,16 +180,18 @@ app.get("/directors/:Name", (req, res) => {
 });
 
 //#6. to get the data on ALL users =========
-app.get("/users", (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get("/users",
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Users.find()
+      .then((users) => {
+        res.status(201).json(users);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  });
 
 
 // #7.to get users by Name
@@ -199,7 +201,7 @@ app.get(
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
-        res.json(user);
+        res.status(201).json(user);
       })
       .catch((err) => {
         console.error(err);
@@ -266,7 +268,7 @@ app.post("/users", [
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    let hashPassword = Users.hashPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
 
     Users.findOne({ Username: req.body.Username })
       .then((user) => {

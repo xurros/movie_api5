@@ -39,3 +39,4 @@ module.exports = (router) => {
     })(req, res);
   });
 }
+
