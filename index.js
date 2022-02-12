@@ -19,8 +19,9 @@ const cors = require("cors");
 const { check, validationResult } = require("express-validator");
 
 //CORS all domain access
-// app.use(cors());
+app.use(cors());
 // If you want to give some domains to access the server : 
+require('./auth')(app);
 
 let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
 app.use(cors({
@@ -43,10 +44,10 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // Schema file
 const Models = require("./models.js");
 // Schemas
-const Movies = Models.Movie;
-const Users = Models.User;
-const Directors = Models.Director;
-const Genres = Models.Genre;
+const Movies = Models.Movies;
+const Users = Models.Users;
+const Directors = Models.Directors;
+const Genres = Models.Genres;
 
 
 //Connect to the server you created
@@ -79,8 +80,6 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 
 
 
-
-
 // Authentication process 2.9
 let auth = require("./auth")(app);
 const passport = require('passport');
@@ -94,7 +93,7 @@ app.use("/", express.static("public"));
 //  GET/READ REQUEST LIST======
 //  to get a welcome page====
 app.get("/", (req, res) => {
-  res.send("<h4>Welcome to honeypotflix</h4>");
+  res.send("<h3> Welcome to honeypotflix</h3>");
 });
 
 //  #1. to get the data on ALL movies ====
@@ -180,16 +179,18 @@ app.get("/directors/:Name", (req, res) => {
 });
 
 //#6. to get the data on ALL users =========
-app.get("/users", (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get("/users",
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Users.find()
+      .then((users) => {
+        res.status(201).json(users);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  });
 
 
 // #7.to get users by Name
@@ -199,7 +200,7 @@ app.get(
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
-        res.json(user);
+        res.status(201).json(user);
       })
       .catch((err) => {
         console.error(err);
@@ -266,7 +267,7 @@ app.post("/users", [
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    let hashPassword = Users.hashPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
 
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
