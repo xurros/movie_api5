@@ -19,22 +19,21 @@ const cors = require("cors");
 const { check, validationResult } = require("express-validator");
 
 //CORS all domain access
-app.use(cors());
+// app.use(cors());
 // If you want to give some domains to access the server : 
-require('./auth')(app);
 
-// let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (!origin) return callback(null, true);
-//     if (allowedOrigins.indexOf(origin) === -1) {
-//       //If a specific origin isn't found on the list of allowed origins
-//       let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-//       return callback(new Error(message), false);
-//     }
-//     return callback(null, true);
-//   }
-// }));
+let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      //If a specific origin isn't found on the list of allowed origins
+      let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 const mongoose = require("mongoose");
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
@@ -44,10 +43,10 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // Schema file
 const Models = require("./models.js");
 // Schemas
-const Movies = Models.Movies;
-const Users = Models.Users;
-const Directors = Models.Directors;
-const Genres = Models.Genres;
+const Movies = Models.Movie;
+const Users = Models.User;
+const Directors = Models.Director;
+const Genres = Models.Genre;
 
 
 //Connect to the server you created
@@ -77,6 +76,8 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 
 // to fetch static files =====
 // app.use("/documentation", express.static("public"));
+
+
 
 
 
@@ -179,18 +180,16 @@ app.get("/directors/:Name", (req, res) => {
 });
 
 //#6. to get the data on ALL users =========
-app.get("/users",
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Users.find()
-      .then((users) => {
-        res.status(201).json(users);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  });
+app.get("/users", (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
 
 // #7.to get users by Name
@@ -200,7 +199,7 @@ app.get(
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
-        res.status(201).json(user);
+        res.json(user);
       })
       .catch((err) => {
         console.error(err);
@@ -267,7 +266,7 @@ app.post("/users", [
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    let hashedPassword = Users.hashPassword(req.body.Password);
+    let hashPassword = Users.hashPassword(req.body.Password);
 
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
