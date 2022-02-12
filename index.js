@@ -1,44 +1,13 @@
 // platforms needed =====
 const express = require("express");
-const path = require("path");
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
-const morgan = require("morgan");
-
-const app = express();
-//  process data sent through an HTTP request body  - using bodyParser=====
-app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({ extended: true }));
-// use middleware to log HTTP requests and errors =====
-app.use(morgan("common"));
-app.use(express.json());
-
 //integrating mongoose with REST API
 const cors = require("cors");
-const { check, validationResult } = require("express-validator");
-
-//CORS all domain access
-// app.use(cors());
-// If you want to give some domains to access the server : 
-// require('./auth')(app);
-// require("dotenv").config();
-
-
-let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      //If a specific origin isn't found on the list of allowed origins
-      let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
 
 const mongoose = require("mongoose");
+const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // require('dotenv').config();
 
@@ -46,14 +15,13 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // Schema file
 const Models = require("./models.js");
 // Schemas
-const Movies = Models.Movies;
-const Users = Models.Users;
-const Directors = Models.Directors;
-const Genres = Models.Genres;
-
+const Movies = Models.Movie;
+const Users = Models.User;
+const Directors = Models.Director;
+const Genres = Models.Genre;
 
 //Connect to the server you created
-const mongouri = process.env.MONGODB_URI;
+// const mongouri = process.env.MONGODB_URI;
 
 // mongoose.connect(process.env.CONNECTION_URI, {
 //   useNewUrlParser: true,
@@ -80,16 +48,45 @@ mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.ne
 // to fetch static files =====
 // app.use("/documentation", express.static("public"));
 
+//CORS all domain access
+// app.use(cors());
+// If you want to give some domains to access the server : 
+// require('./auth')(app);
+// require("dotenv").config();
+
+const app = express();
+//  process data sent through an HTTP request body  - using bodyParser=====
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// use middleware to log HTTP requests and errors =====
+app.use(morgan("common"));
+app.use(express.json());
+
+
+let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      //If a specific origin isn't found on the list of allowed origins
+      let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 
 // Authentication process 2.9
 let auth = require("./auth")(app);
-const passport = require('passport');
-require('./passport');
+const passport = require("passport");
+require("./passport");
 // app.use(passport.initialize());
 
 //GET requests
 app.use("/", express.static("public"));
+
+const { check, validationResult } = require("express-validator");
 
 
 //  GET/READ REQUEST LIST======
@@ -142,8 +139,8 @@ app.get(
   }
 );
 // #4. to get data on a certain movie by genre
-app.get(
-  "/movies/genre/:Genre", passport.authenticate("jwt", { session: false }),
+app.get("/movies/genre/:Genre",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     // console.log('GENRE: ', req.params.Genre)
     Movies.find({ Genre: req.params.Genre })
@@ -157,8 +154,9 @@ app.get(
   });
 
 // #5A.Return data about a director (bio, birth year, death year) by name
-app.get(
-  "/movies/director/:Name", (req, res) => {
+app.get("/movies/director/:Name",
+
+  (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.name })
       .then((movie) => {
         res.json(movie.Director);
@@ -169,20 +167,21 @@ app.get(
       });
   });
 // #5b. to get data on a certain director
-app.get("/directors/:Name", (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
-    .then((director) => {
-      res.json(director);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get("/directors/:Name",
+  (req, res) => {
+    Directors.findOne({ Name: req.params.Name })
+      .then((director) => {
+        res.json(director);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  });
 
 //#6. to get the data on ALL users =========
 app.get("/users",
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Users.find()
       .then((users) => {
@@ -254,14 +253,17 @@ app.put(
       });
   });
 
+
+
 //  CREATE LISTS =======
 // #9. allow users to register/add new user  =========
-app.post("/users", [
-  check("Username", "Username is required").isLength({ min: 6 }),
-  check("Username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
-  check("Password", "Password is required").not().isEmpty(),
-  check("Email", "Email does not appear to be valid.").isEmail()
-],
+app.post("/users",
+  [
+    check("Username", "Username is required").isLength({ min: 6 }),
+    check("Username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid.").isEmail()
+  ],
   (req, res) => {
 
     let errors = validationResult(req);
