@@ -23,18 +23,18 @@ app.use(cors());
 // If you want to give some domains to access the server : 
 require('./auth')(app);
 
-let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      //If a specific origin isn't found on the list of allowed origins
-      let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
+// let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin) return callback(null, true);
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       //If a specific origin isn't found on the list of allowed origins
+//       let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+//       return callback(new Error(message), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
 
 const mongoose = require("mongoose");
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
