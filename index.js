@@ -55,18 +55,19 @@ const Genres = Models.Genres;
 //Connect to the server you created
 const mongouri = process.env.MONGODB_URI;
 
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 // mongoose.connect('mongodb://localhost:27017/mymovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
-//   { useNewUrlParser: true, useUnifiedTopology: true
-//   });
+mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true, useUnifiedTopology: true
+  });
 
 // mongoose.connect("mongodb://localhost:27017/mymovieDB",
 // {
