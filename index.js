@@ -92,8 +92,7 @@ const { check, validationResult } = require("express-validator");
 //  GET/READ REQUEST LIST======
 //  to get a welcome page====
 app.get("/", (req, res) => {
-  res.send("<h6> Welcome to honeypotflix!<h6> 
-    < p > This is the project creating a React app linked to its backend using REST API and MongoDB as its database.Thank you for visiting.</p > ");
+  res.send("<h6> Welcome to honeypotflix! This is the project creating a React app linked to its backend using REST API and MongoDB for its database</h6>");
 });
 
 //  #1. to get the data on ALL movies ====
