@@ -2,92 +2,65 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const uuid = require("uuid");
-//integrating mongoose with REST API
-const cors = require("cors");
-
 const mongoose = require("mongoose");
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') });
-// require('dotenv').config();
 
+// const uuid = require("uuid");
+
+// const path = require('path');
+// require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+// require('dotenv').config();
 
 // Schema file
 const Models = require("./models.js");
+
 // Schemas
 const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
 const Genres = Models.Genre;
 
-//Connect to the server you created
-// const mongouri = process.env.MONGODB_URI;
+const { check, validationResult } = require("express-validator");
 
-// mongoose.connect(process.env.CONNECTION_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
-// mongoose.connect('mongodb://localhost:27017/mymovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-// mongoose.connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true });
+const app = express();
 
 mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
   {
     useNewUrlParser: true, useUnifiedTopology: true
   });
 
-// mongoose.connect("mongodb://localhost:27017/mymovieDB",
-// {
-//   useNewUrlParser: true, useUnifiedTopology: true
-// });
+// Include CORS before auth and middleware
+const cors = require('cors');
+let allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:1234",
+  "https://honeypotflix.herokuapp.com"];
 
-// mongoose.connect('process.env.CONNECTION_URI',
-//   { useNewUrlParser: true, useUnifiedTopology: true });
-
-// to fetch static files =====
-// app.use("/documentation", express.static("public"));
-
-//CORS all domain access
-// app.use(cors());
-// If you want to give some domains to access the server : 
-// require('./auth')(app);
-// require("dotenv").config();
-
-const app = express();
-//  process data sent through an HTTP request body  - using bodyParser=====
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-// use middleware to log HTTP requests and errors =====
-app.use(morgan("common"));
-app.use(express.json());
-
-
-let allowedOrigins = ["http://localhost:3000", "http://localhost:8000", "http://localhost:1234", "https://honeypotflix.herokuapp.com"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      //If a specific origin isn't found on the list of allowed origins
-      let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-      return callback(new Error(message), false);
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        //If a specific origin isn't found on the list of allowed origins
+        let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
     }
-    return callback(null, true);
-  }
-}));
+  }));
 
+///use middleware to log HTTP requests and errors =====
+app.use(express.static('public')); // serve static fiåles
+// app.use(express.urlencoded({extended: true})); // encoded express
+app.use(morgan('common')); // log requests to terminal
+app.use(express.json());
+app.use(bodyParser.json()); // use body-parser - //  process data sent through an HTTP request body  - using bodyParser=====
+app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
 
 // Authentication process 2.9
 let auth = require("./auth")(app);
-const passport = require("passport");
-require("./passport");
-// app.use(passport.initialize());
-
-//GET requests
-app.use("/", express.static("public"));
-
-const { check, validationResult } = require("express-validator");
-
+// Require passport after auth
+const passport = require('passport');
+require('./passport');
 
 //  GET/READ REQUEST LIST======
 //  to get a welcome page====
@@ -95,42 +68,22 @@ app.get("/", (req, res) => {
   res.send("Welcome to honeypotflix! This is the project creating a React app linked to its backend using REST API and MongoDB for its database");
 });
 
+
+// Get documentation page
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', {
+    root: __dirname,
+  });
+}
+);
+
 //  #1. to get the data on ALL movies ====
 app.get("/movies",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find()
       .then((movies) => {
-        res.status(201).json(movies);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  });
-
-// #2. to get data on a certain movie by title
-app.get(
-  "/movies/:Title", passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.findOne({ Title: req.params.Title })
-      .then((movie) => {
-        res.json(movie);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  });
-
-// 3.Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get(
-  "/movies/genre/:Title",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.findOne({ Title: req.params.title })
-      .then((movie) => {
-        res.json(movie.Genre);
+        res.status(200).json(movies);
       })
       .catch((err) => {
         console.error(err);
@@ -138,38 +91,72 @@ app.get(
       });
   }
 );
-// #4. to get data on a certain movie by genre
-app.get("/movies/genre/:Genre",
-  passport.authenticate("jwt", { session: false }),
+
+// #2. to get data on a certain movie by title
+app.get("/movies/:Title",
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // console.log('GENRE: ', req.params.Genre)
-    Movies.find({ Genre: req.params.Genre })
-      .then((movies) => {
-        res.json(movies);
+    Movies.findOne({ Title: req.params.Title })
+      .then((movie) => {
+        res.status(201).json(movie);
       })
       .catch((err) => {
         console.error(err);
         res.status(500).send("Error: " + err);
       });
-  });
+  }
+);
+
+// 3.Return data about a genre (description) by name/title (e.g., “Thriller”)
+app.get("/genres",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Genres.find()
+      .then((directors) => {
+        res.status(201).json(genres);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // #5A.Return data about a director (bio, birth year, death year) by name
-app.get("/movies/director/:Name",
-
+// Get list of all directors
+app.get("/directors",
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Movies.findOne({ 'Director.Name': req.params.name })
-      .then((movie) => {
-        res.json(movie.Director);
+    Directors.find()
+      .then((movies) => {
+        res.status(201).json(Directors);
       })
       .catch((err) => {
         console.error(err);
         res.status(500).send('Error: ' + err);
       });
+  }
+);
+
+
+
+app.get("/directors/:Name",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.findOne({ "Director.Name": req.params.Name })
+      .then((movie) => {
+        res.status(201).json(movie.Director);
+      });
+
+    console.error(err);
   });
+
+
+
 // #5b. to get data on a certain director
 app.get("/directors/:Name",
   (req, res) => {
-    Directors.findOne({ Name: req.params.Name })
+    Directors.findOne({ "Name": req.params.Name })
       .then((director) => {
         res.json(director);
       })
@@ -195,9 +182,8 @@ app.get("/users",
 
 
 // #7.to get users by Name
-app.get(
-  "/users/:Username",
-  passport.authenticate("jwt", { session: false }),
+app.get("/users/:Username",
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
@@ -213,9 +199,8 @@ app.get(
 
 //  UPDATE LISTS ====
 // #8. to update user info by username
-app.put(
-  "/users/:Username",
-  passport.authenticate("jwt", { session: false }),
+app.put("/users/:Username",
+  // passport.authenticate("jwt", { session: false }),
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     check(
@@ -301,8 +286,7 @@ app.post("/users",
   });
 
 // #10. to add a movie to users favorite list =====
-app.post(
-  "/users/:Username/movies/:Title",
+app.post("/users/:Username/movies/:Title",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -321,8 +305,7 @@ app.post(
 
 // ERASE LISTS ========
 // #11. to Delete a movie from the favorite list by title =====
-app.delete(
-  "/users/:Username/movies/:Title",
+app.delete("/users/:Username/movies/:Title",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -340,8 +323,7 @@ app.delete(
   });
 
 // #12. to delete a user by username =====
-app.delete(
-  "/users/:Username",
+app.delete("/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
@@ -359,8 +341,7 @@ app.delete(
   });
 
 // #13. Allow existing users to deregister - showing text that the email has been removed
-app.delete(
-  "/users/:Username",
+app.delete("/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.send("Your email has been removed. Please register as a new user");
