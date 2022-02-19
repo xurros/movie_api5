@@ -106,12 +106,12 @@ app.get("/genres",
   });
 // Get genre by name
 app.get(
-  "/genres/:Name",
+  "/movies/genres/:Genre",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Genres.findOne({ Name: req.params.Name })
-      .then((genres) => {
-        res.status(201).json(genres);
+    Genres.findOne({ "Genre.Name": req.params.Name })
+      .then((genre) => {
+        res.status(201).json(genre.Genre);
       })
       .catch((err) => {
         console.error(err);
@@ -136,12 +136,12 @@ app.get("/movies",
 
 // #5A.Return data about a director (bio, birth year, death year) by name
 // Get list of all directors
-app.get("/directors",
+app.get("/movies/director/:Name",
   // passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Directors.find()
-      .then((directors) => {
-        res.status(201).json(directors);
+      .then((director) => {
+        res.status(201).json(director.Director);
       })
       .catch((err) => {
         console.error(err);
@@ -163,9 +163,9 @@ app.get("/movies/genre/:Name",
 app.get("/directors/:Name",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Directors.findOne({ Name: req.params.Name })
-      .then((director) => {
-        res.status(201).json(director);
+    Movies.findOne({ "Director.Name": req.params.Name })
+      .then((movie) => {
+        res.status(201).json(movie.Director);
       })
       .catch((err) => {
         console.error(err);
