@@ -1,35 +1,30 @@
 // platforms needed =====
 const express = require("express");
-const morgan = require("morgan");
 const bodyParser = require("body-parser");
+
+const cors = require("cors");
+const morgan = require("morgan");
+const app = express(); //instantiate app
+
 const mongoose = require("mongoose");
-
-// const uuid = require("uuid");
-
-// const path = require('path');
-// require('dotenv').config({ path: path.resolve(__dirname, './.env') });
-// require('dotenv').config();
-
 // Schema file
 const Models = require("./models.js");
+const { check, validationResult } = require("express-validator");
 
 // Schemas
 const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
-const Genres = Models.Genre;
-
-const { check, validationResult } = require("express-validator");
-
-const app = express();
+const Genres = Models.Genre
 
 mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
   {
     useNewUrlParser: true, useUnifiedTopology: true
   });
 
-// Include CORS before auth and middleware
-const cors = require('cors');
+app.use(bodyParser.json()); // use body-parser - //  process data sent through an HTTP request body  - using bodyParser=====
+app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
+
 let allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:1234",
@@ -48,34 +43,19 @@ app.use(
     }
   }));
 
-///use middleware to log HTTP requests and errors =====
-app.use(express.static('public')); // serve static fiåles
-// app.use(express.urlencoded({extended: true})); // encoded express
-app.use(morgan('common')); // log requests to terminal
-app.use(express.json());
-app.use(bodyParser.json()); // use body-parser - //  process data sent through an HTTP request body  - using bodyParser=====
-app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
-
 // Authentication process 2.9
 let auth = require("./auth")(app);
 // Require passport after auth
 const passport = require('passport');
 require('./passport');
+const { param } = require("express-validator/src/middlewares/validation-chain-builders");
 
-//  GET/READ REQUEST LIST======
+app.use(morgan('common')); // log requests to terminal
+
 //  to get a welcome page====
 app.get("/", (req, res) => {
   res.send("Welcome to honeypotflix! This is the project creating a React app linked to its backend using REST API and MongoDB for its database");
 });
-
-
-// Get documentation page
-app.get('/documentation', (req, res) => {
-  res.sendFile('public/documentation.html', {
-    root: __dirname,
-  });
-}
-);
 
 //  #1. to get the data on ALL movies ====
 app.get("/movies",
@@ -98,7 +78,11 @@ app.get("/movies/:Title",
   (req, res) => {
     Movies.findOne({ Title: req.params.Title })
       .then((movie) => {
-        res.status(201).json(movie);
+        if (movie === null) {
+          res.status(404).send("No movie found")
+        } else {
+          res.status(201).json(movie);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -112,8 +96,36 @@ app.get("/genres",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Genres.find()
-      .then((directors) => {
+      .then((genres) => {
+        res.status(201).json(directors);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  });
+// Get genre by name
+app.get(
+  "/genres/:Name",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Genres.findOne({ Name: req.params.Name })
+      .then((genres) => {
         res.status(201).json(genres);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  }
+);
+
+app.get("/movies",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(200).json(movies);
       })
       .catch((err) => {
         console.error(err);
@@ -128,8 +140,8 @@ app.get("/directors",
   // passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Directors.find()
-      .then((movies) => {
-        res.status(201).json(Directors);
+      .then((directors) => {
+        res.status(201).json(directors);
       })
       .catch((err) => {
         console.error(err);
@@ -138,33 +150,29 @@ app.get("/directors",
   }
 );
 
+app.get("/movies/genre/:Name",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.findOne({ "Genre.Name": req.params.Name }).then((movie) => {
+      res.status(200).json(movie.Genre);
+    });
+  });
 
+// #5b. to get data on a certain director
 
 app.get("/directors/:Name",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Movies.findOne({ "Director.Name": req.params.Name })
-      .then((movie) => {
-        res.status(201).json(movie.Director);
-      });
-
-    console.error(err);
-  });
-
-
-
-// #5b. to get data on a certain director
-app.get("/directors/:Name",
-  (req, res) => {
-    Directors.findOne({ "Name": req.params.Name })
+    Directors.findOne({ Name: req.params.Name })
       .then((director) => {
-        res.json(director);
+        res.status(201).json(director);
       })
       .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
       });
   });
+
 
 //#6. to get the data on ALL users =========
 app.get("/users",
@@ -195,9 +203,6 @@ app.get("/users/:Username",
       });
   });
 
-//  =======END OF GET/READ REQUEST =========
-
-//  UPDATE LISTS ====
 // #8. to update user info by username
 app.put("/users/:Username",
   // passport.authenticate("jwt", { session: false }),
@@ -344,8 +349,38 @@ app.delete("/users/:Username",
 app.delete("/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send("Your email has been removed. Please register as a new user");
-  }
+    Users.findOneAndRemove({ Username: req.params.Username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.Username + ' was not found');
+        } else {
+          res.status(200).send(req.params.Username + ' was deleted.');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+
+      });
+    alert("Your email has been removed. Please register as a new user");
+
+  });
+
+app.use(express.static('public', {
+  extensions: ['html'],
+}));
+
+
+
+//  GET/READ REQUEST LIST======
+
+
+// Get documentation page
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', {
+    root: __dirname,
+  });
+}
 );
 
 // ERROR HANDLING =======

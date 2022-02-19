@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 let movieSchema = mongoose.Schema({
   Title: { type: String, required: true },
-  Description: { type: String },
+  Description: { type: String, required: true },
   Genre: {
     Name: String,
     Description: String,
@@ -12,9 +12,9 @@ let movieSchema = mongoose.Schema({
     Name: String,
     Bio: String
   },
-  Actors: [String],
-  ImagePath: String,
-  Featured: Boolean
+  // Actors: [String],
+  // ImagePath: String,
+  // Featured: Boolean
 });
 
 let userSchema = mongoose.Schema({
@@ -44,12 +44,13 @@ userSchema.methods.validatePassword = function (password) {
   return bcrypt.compareSync(password, this.Password);
 };
 
+// Create models
 let Movie = mongoose.model("Movie", movieSchema);
 let User = mongoose.model("User", userSchema);
 // let Director = mongoose.model("Director", directorSchema);
 // let Genre = mongoose.model("Genre", genreSchema);
 
-
+// Export models
 module.exports.Movie = Movie;
 module.exports.User = User;
 // module.exports.Director = Director;
