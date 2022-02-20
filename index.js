@@ -96,7 +96,7 @@ app.get("/movies/:Title",
 //  PROBLEMS!!!
 
 // * api call to return data about a single genre by name (i.e. Drama)
-app.get("/movies/genres/:Genre",
+app.get("/movies/genres/:Name",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find({ "Genre.Name": req.params.Name })
