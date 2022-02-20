@@ -30,18 +30,17 @@ let allowedOrigins = [
   "http://localhost:1234",
   "https://honeypotflix.herokuapp.com"];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        //If a specific origin isn't found on the list of allowed origins
-        let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      //If a specific origin isn't found on the list of allowed origins
+      let message = "The CORS policy for this application doesn't allow access from origin" + origin;
+      return callback(new Error(message), false);
     }
-  }));
+    return callback(null, true);
+  }
+}));
 
 // Authentication process 2.9
 let auth = require("./auth")(app);
@@ -53,9 +52,10 @@ const { param } = require("express-validator/src/middlewares/validation-chain-bu
 app.use(morgan('common')); // log requests to terminal
 
 //  to get a welcome page====
-app.get("/", (req, res) => {
-  res.send("Welcome to honeypotflix! This is the project creating a React app linked to its backend using REST API and MongoDB for its database");
-});
+app.get("/",
+  (req, res) => {
+    res.send("Welcome to honeypotflix! This is the project creating a React app linked to its backend using REST API and MongoDB for its database");
+  });
 
 //  #1. to get the data on ALL movies ====
 app.get("/movies",
@@ -79,7 +79,7 @@ app.get("/movies/:Title",
     Movies.findOne({ Title: req.params.Title })
       .then((movie) => {
         if (movie === null) {
-          res.status(404).send("No movie found")
+          res.status(404).send("No movie/s found")
         } else {
           res.status(201).json(movie);
         }
@@ -91,87 +91,77 @@ app.get("/movies/:Title",
   }
 );
 
-// 3.Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get("/genres",
-  // passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Genres.find()
-      .then((genres) => {
-        res.status(201).json(directors);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  });
-// Get genre by name
-app.get(
-  "/movies/genres/:Genre",
-  // passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Genres.findOne({ "Genre.Name": req.params.Name })
-      .then((genre) => {
-        res.status(201).json(genre.Genre);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
-  }
-);
 
-app.get("/movies",
+
+//  PROBLEMS!!!
+
+// * api call to return data about a single genre by name (i.e. Drama)
+app.get("/movies/genres/:Genre",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Movies.find()
+    Movies.find({ "Genre.Name": req.params.Name })
       .then((movies) => {
-        res.status(200).json(movies);
+        res.status(201).json(movies);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         res.status(500).send("Error: " + err);
       });
   }
 );
 
-// #5A.Return data about a director (bio, birth year, death year) by name
-// Get list of all directors
-app.get("/movies/director/:Name",
-  // passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Directors.find()
-      .then((director) => {
-        res.status(201).json(director.Director);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
-  }
-);
 
-app.get("/movies/genre/:Name",
-  // passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.findOne({ "Genre.Name": req.params.Name }).then((movie) => {
-      res.status(200).json(movie.Genre);
+// Get  directors
+// to get the data on ALL directors =========
+app.get("/directors", (req, res) => {
+  Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
     });
-  });
-
-// #5b. to get data on a certain director
+});
 
 app.get("/directors/:Name",
-  // passport.authenticate("jwt", { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Movies.findOne({ "Director.Name": req.params.Name })
-      .then((movie) => {
-        res.status(201).json(movie.Director);
+    Directors.findOne({ Name: req.params.Name })
+      .then((director) => {
+        res.status(201).json(director);
       })
       .catch((err) => {
         console.error(err);
         res.status(500).send('Error: ' + err);
       });
-  });
+  }
+);
+
+app.get("/directors/:Name/movies",
+  // passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Movies.find({ Name: req.params.Name })
+      .then((director) => {
+        res.status(201).json(director);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  }
+);
+
+//  ####################################
+
+
+
+
+
+
+
+
+
 
 
 //#6. to get the data on ALL users =========
@@ -352,22 +342,22 @@ app.delete("/users/:Username",
     Users.findOneAndRemove({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
-          res.status(400).send(req.params.Username + ' was not found');
+          res.status(400).send(req.params.Username + " was not found");
         } else {
-          res.status(200).send(req.params.Username + ' was deleted.');
+          res.status(200).send(req.params.Username + " was deleted.");
         }
       })
       .catch((err) => {
         console.error(err);
-        res.status(500).send('Error: ' + err);
+        res.status(500).send("Error: " + err);
 
       });
     alert("Your email has been removed. Please register as a new user");
 
   });
 
-app.use(express.static('public', {
-  extensions: ['html'],
+app.use(express.static("public", {
+  extensions: ["html"],
 }));
 
 

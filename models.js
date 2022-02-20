@@ -25,16 +25,16 @@ let userSchema = mongoose.Schema({
   FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
-// let directorSchema = mongoose.Schema({
-//   Name: { type: String, required: true },
-//   Bio: String,
-//   Birthdate: Date,
-// });
+let directorSchema = mongoose.Schema({
+  Name: { type: String, required: true },
+  Bio: String,
+  Birthdate: Date,
+});
 
-// let genreSchema = mongoose.Schema({
-//   Category: { type: String, required: true },
-//   Description: String,
-// });
+let genreSchema = mongoose.Schema({
+  Category: { type: String, required: true },
+  Description: String,
+});
 
 userSchema.statics.hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
@@ -47,12 +47,12 @@ userSchema.methods.validatePassword = function (password) {
 // Create models
 let Movie = mongoose.model("Movie", movieSchema);
 let User = mongoose.model("User", userSchema);
-// let Director = mongoose.model("Director", directorSchema);
-// let Genre = mongoose.model("Genre", genreSchema);
+let Director = mongoose.model("Director", directorSchema);
+let Genre = mongoose.model("Genre", genreSchema);
 
 // Export models
 module.exports.Movie = Movie;
 module.exports.User = User;
-// module.exports.Director = Director;
-// module.exports.Genre = Genre;
+module.exports.Director = Director;
+module.exports.Genre = Genre;
 
