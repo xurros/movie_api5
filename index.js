@@ -96,34 +96,53 @@ app.get("/movies/:Title",
 //  PROBLEMS!!!
 
 // * api call to return data about a single genre by name (i.e. Drama)
-app.get("/movies/genres/:Name",
-  // passport.authenticate("jwt", { session: false }),
+app.get("/genres/:Genre",
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Movies.find({ "Genre.Name": req.params.Name })
-      .then((movies) => {
-        res.status(201).json(movies);
+    Genres.findOne({ Name: req.params.Name })
+      .then((genres) => {
+        res.status(201).json(genres);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
       });
   }
 );
 
+// to get data on a genre by Title of the movie  
+app.get('/movies/genres/:Title',
+  // passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // Find a matching genre based on the genre name passed in the URL, then send the genre details in json format to the client
+    // This will be found from the db.movies collection, but we will obtain all information about a genre we need from a single entry
+    Movies.findOne({ "Title": req.params.Title })
+      .then((movies) => {
+        res.json(movies.Genre);
+        // If errors are found run the error catching function
+      }).catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
+
+
 
 // Get  directors
 // to get the data on ALL directors =========
-app.get("/directors", (req, res) => {
-  Directors.find()
-    .then((directors) => {
-      res.status(201).json(directors);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get("/directors",
+  (req, res) => {
+    Directors.find()
+      .then((directors) => {
+        res.status(201).json(directors);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  });
 
+// Call one particular director and the bio
 app.get("/directors/:Name",
   // passport.authenticate('jwt', { session: false }),
   (req, res) => {
@@ -138,19 +157,21 @@ app.get("/directors/:Name",
   }
 );
 
-app.get("/directors/:Name/movies",
-  // passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Movies.find({ Name: req.params.Name })
-      .then((director) => {
-        res.status(201).json(director);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
-  }
-);
+
+//Call liss of the movies from one particular director
+
+// app.get("/movies/directors/:Name",
+//   (req, res) => {
+//     Directors.findOne({ "Director.Name": req.params.Name })
+//       .then((movies) => {
+//         res.status(201).json(movies);
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//         res.status(500).send('Error: ' + err);
+//       });
+//   }
+// );
 
 //  ####################################
 
