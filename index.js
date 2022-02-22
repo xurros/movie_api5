@@ -28,7 +28,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
 let allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:1234",
-  "https://honeypotflix.herokuapp.com"];
+  "https://honeypotflix.herokuapp.com",
+  "https://honeypotflixplay.netlify.app"];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -116,9 +117,25 @@ app.get('/movies/genres/:Title',
   (req, res) => {
     // Find a matching genre based on the genre name passed in the URL, then send the genre details in json format to the client
     // This will be found from the db.movies collection, but we will obtain all information about a genre we need from a single entry
-    Movies.findOne({ "Title": req.params.Title })
+    Movies.findOne({ Title: req.params.Title })
       .then((movies) => {
         res.json(movies.Genre);
+        // If errors are found run the error catching function
+      }).catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
+
+
+app.get('/movies/genres/:Name',
+  // passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // Find a matching genre based on the genre name passed in the URL, then send the genre details in json format to the client
+    // This will be found from the db.movies collection, but we will obtain all information about a genre we need from a single entry
+    Movies.findOne({ Genre: req.params.Name })
+      .then((movies) => {
+        res.json(movies.Title);
         // If errors are found run the error catching function
       }).catch((err) => {
         console.error(err);
