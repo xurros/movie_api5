@@ -19,8 +19,8 @@ const Genres = Models.Genre
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-console.log(process.env.CONNECTION_URI);
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// console.log(process.env.MONGODB_URI);
 
 app.use(bodyParser.json()); // use body-parser - //  process data sent through an HTTP request body  - using bodyParser=====
 app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
