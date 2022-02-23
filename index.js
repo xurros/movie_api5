@@ -19,13 +19,8 @@ const Genres = Models.Genre
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
-console.log(process.env.CONNECTION_URI);
-// mongoose.connect("mongodb+srv://foundry123:foundry123@mymovieDB.5wgon.mongodb.net/mymovieDB?retryWrites=true&w=majority",
-//   {
-//     useNewUrlParser: true, useUnifiedTopology: true
-//   });
-
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(process.env.CONNECTION_URI);
 
 app.use(bodyParser.json()); // use body-parser - //  process data sent through an HTTP request body  - using bodyParser=====
 app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
@@ -65,7 +60,7 @@ app.get("/",
 
 //  #1. to get the data on ALL movies ====
 app.get("/movies",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find()
       .then((movies) => {
