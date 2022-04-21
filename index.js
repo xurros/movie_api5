@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // use body-parser encoded
 let allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:1234",
+  "http://localhost:4200",
   "https://honeypotflix.herokuapp.com",
   "https://honeypotflixplay.netlify.app"];
 
