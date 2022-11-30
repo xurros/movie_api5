@@ -59,7 +59,7 @@ movie_api5 is an api movie database to be used in conjunction with the
 https://main--honeypotflixplay.netlify.app/.
 <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
-* Full Documentation: 
+* Raw Documentation: 
 https://github.com/xurros/movie_api5/blob/main/public/documentation.html 
 
 * or 
