@@ -5,7 +5,7 @@
   <h1>movie_api5</h1>
   
   <p>
-    An awesome README template for your projects! 
+    [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;movie_api5+app+repo)](https://git.io/typing-svg)
   </p>
 
    </div>
@@ -88,7 +88,7 @@ https://github.com/xurros/movie_api5/blob/main/public/documentation.html
 
 
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;movie_api5+app+repo)](https://git.io/typing-svg)
+
 
 
 
