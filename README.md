@@ -1,8 +1,8 @@
 ## movie_api5
 
-💁 Product
+💁 Project Summary
 
-This API is the server-side component of a “movies” web application. The web application will provide users with access to information about different movies, directors, and genres
+In this project, we learn how to start working on our own API. How to conceptualize and design the architecture of our API (including requests and responses), as well as what kind of information (if any) we need to include in our request and response bodies. We then walked through an example API, exploring a few new Express features such as request parameters, the body-parser and uuid modules, and status codes, all before looking at how we can test our URL endpoints via API development tools like Postman.
 
 ![](header.png)
 
@@ -11,14 +11,9 @@ This API is the server-side component of a “movies” web application. The web
 OS X & Linux:
 
 ```sh
-npm install my-crazy-module --save
+npm install movie_api5 --save
 ```
 
-Windows:
-
-```sh
-edit autoexec.bat
-```
 
 ## Usage example
 
