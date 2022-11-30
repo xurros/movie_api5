@@ -3,7 +3,8 @@
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;honeypotflixplay+app+repo)](https://git.io/typing-svg)
 
-honeypotflixplay is the client-side app to be used in conjunction with the [movie_api5](https://xurros.github.io/movie_api5/) and it's also a replacement of myFlix-client.
+movie_api5 is the client-side app to be used in conjunction with the <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
+ demo: https://main--honeypotflixplay.netlify.app/.
 
 ## 🛠️ Build Tools
 
@@ -30,8 +31,7 @@ Allows users to remove a movie from their list of favorites
 Allows existing users to deregister
 
 
-<img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
- demo: https://main--honeypotflixplay.netlify.app/
+
 
 
 
