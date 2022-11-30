@@ -1,13 +1,12 @@
-## 🎥 movie_api5
+# 🎥 movie_api5
 
-# Product Name
 > Short blurb about what your product does.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-One to two paragraph statement about your product and what it does.
+This API is the server-side component of a “movies” web application. The web application will provide users with access to information about different movies, directors, and genres
 
 ![](header.png)
 
