@@ -6,10 +6,7 @@
 honeypotflixplay is the client-side app to be used in conjunction with the [movie_api5](https://xurros.github.io/movie_api5/) and it's also a replacement of myFlix-client.
 
 ## 🛠️ Build Tools
-honeypotflixplay uses [Parcel](https://parceljs.org/docs/) to transpile JSX into JavaScript and SCSS into CSS, and bundle the project into as few files as possible to serve to the client. Parcel is currently set up in development mode. As such, the code is not minified.  
-To start the build tools, run the command `parcel src/index.html` in the powershell terminal. The project will be hosted at localhost:1234 and will have live-reload enabled.
 
-## 🧩 Framework
 Node.js
 JavaScript
 Express.js
@@ -18,11 +15,19 @@ Mongoose
 ### 👓 Views
 
 | View | Description |
-| --- | --- |
-| `<MainView>` | This is the main view that contains each other element. The main view displays a list of `<MovieCard>` elements when no movie is selected. Clicking on a movie title will update MainView.state.selectedMovie with the selected movie. This triggers the rendering of the appropriate `<MovieView>` in place of the list of list of `<MovieCard>`s. |
-| `<MovieCard>` | This is a simple element displaying the title of a movie. It is passed the `onMovieClick` function from the `<MainView>` as a parameter. The `onclick` function for the rendered `<MovieCard>` updates the `MainView.state.selectedMovie` with the clicked element's movie. |
-| `<MovieView>` | This element displays details for the movie passed into the `movie` parameter. The element has a back button, which when clicked, updated the `MainView.state.selectedMovie` to `null`, triggering the rendering of the list of `<MovieCard>` elements. |
 
+As a user, I want to be able to receive information on movies, directors, and genres so that I can learn more about movies I’ve watched or am interested in.
+As a user, I want to be able to create a profile so I can save data about my favorite movies
+Features
+Returns a list of ALL movies to the user
+Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+Returns data about a genre (description) by name/title (e.g., “Thriller”)
+Returns data about a director (bio, birth year, death year) by name
+Allows new users to register
+Allows users to update their user info (username, password, email, date of birth)
+Allows users to add a movie to their list of favorites
+Allows users to remove a movie from their list of favorites
+Allows existing users to deregister
 
 
 <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
