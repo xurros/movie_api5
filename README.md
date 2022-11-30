@@ -4,9 +4,9 @@
   <img src="assets/logo.png" alt="logo" width="200" height="auto" />
   <h1>movie_api5</h1>
   
-  <p>
+  
     [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;movie_api5+app+repo)](https://git.io/typing-svg)
-  </p>
+ 
 
    </div>
   <br />
