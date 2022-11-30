@@ -1,5 +1,15 @@
 ## movie_api5
 
+
+<div align="center">
+
+  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
+  <h1>Awesome Readme Template</h1>
+  
+  <p>
+    An awesome README template for your projects! 
+  </p>
+   
 💁 Project Summary
 
 In this project, we learn how to start working on our own API. How to conceptualize and design the architecture of our API (including requests and responses), as well as what kind of information (if any) we need to include in our request and response bodies. We then walked through an example API, exploring a few new Express features such as request parameters, the body-parser and uuid modules, and status codes, all before looking at how we can test our URL endpoints via API development tools like Postman.
