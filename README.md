@@ -3,11 +3,7 @@
 
   <img src="assets/logo.png" alt="logo" width="200" height="auto" />
   <h1>movie_api5</h1>
-  
-  
-    [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;movie_api5+app+repo)](https://git.io/typing-svg)
- 
-
+  [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;honeypotflixplay+app+repo)](https://git.io/typing-svg)
    </div>
   <br />
   <br />
