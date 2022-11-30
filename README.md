@@ -24,22 +24,14 @@ npm install movie_api5 --save
 ```
 
 
-## Usage example
+## Scenario
 
 As a user, I want to be able to receive information on movies, directors, and genres so that I can learn more about movies I’ve watched or am interested in.
 
 As a user, I want to be able to create a profile so I can save data about my favorite movies.
 
-## Development setup
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
-
-```sh
-make install
-npm test
-```
-
-## Steps
+## Progress History
 
 * movie_api
     * assigning express in index.js file
