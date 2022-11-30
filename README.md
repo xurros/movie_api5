@@ -30,7 +30,7 @@ make install
 npm test
 ```
 
-## What I did in summary
+## Steps
 
 * movie_api
     * assigning express in index.js file
@@ -55,12 +55,12 @@ npm test
 
 ## Meta
 
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
+movie_api5 is an api movie database to be used in conjunction with the 
+https://main--honeypotflixplay.netlify.app/.
+<img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
 
-[https://github.com/yourname/github-link](https://github.com/dbader/)
-
+https://github.com/xurros/movie_api5/blob/main/public/documentation.html (https://github.com/xurros/movie_api5/
 
 
 <!-- Markdown link & img dfn's -->
@@ -77,8 +77,7 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;movie_api5+app+repo)](https://git.io/typing-svg)
 
-movie_api5 is api movie database to be used in conjunction with the 
-https://main--honeypotflixplay.netlify.app/. <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
+
 
 ## 🛠️ Tools/Frameworks used
 
