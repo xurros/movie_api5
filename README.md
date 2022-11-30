@@ -17,9 +17,9 @@ npm install movie_api5 --save
 
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+As a user, I want to be able to receive information on movies, directors, and genres so that I can learn more about movies I’ve watched or am interested in.
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+As a user, I want to be able to create a profile so I can save data about my favorite movies.
 
 ## Development setup
 
@@ -30,19 +30,27 @@ make install
 npm test
 ```
 
-## Release History
+## What I did in summary
 
-* 0.2.1
-    * CHANGE: Update docs (module code remains unchanged)
-* 0.2.0
-    * CHANGE: Remove `setDefaultXYZ()`
-    * ADD: Add `init()`
-* 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-* 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()`
-* 0.0.1
+* movie_api
+    * assigning express in index.js file
+    * Tested my project from the terminal and navigating to your URL endpoints in a browser (in this stage the documentation.html page was created)
+    * using morgan middleware to log the request (in the terminal)
+    * creating an error handling function (bodyParser was not installed)
+    
+* movie_api2
+    * no change
+    
+* movie_api3
+    * assigning express in index.js file
+    * Tested the project from the terminal and navigating to my URL endpoints in a browser (via Postman)
+
+* movie_api4
+    * using react 
+    * implementing Authorization and Authentication
+    
+* movie_api5
+
     * Work in progress
 
 ## Meta
@@ -53,13 +61,7 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 
 [https://github.com/yourname/github-link](https://github.com/dbader/)
 
-## Contributing
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
@@ -89,9 +91,7 @@ Mongoose
 ### 👓 Description
 
 
-As a user, I want to be able to receive information on movies, directors, and genres so that I can learn more about movies I’ve watched or am interested in.
 
-As a user, I want to be able to create a profile so I can save data about my favorite movies
 
 ### 👓 Features:
 
