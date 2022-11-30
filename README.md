@@ -1,18 +1,19 @@
 ## 🎥 movie_api5
 
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;honeypotflixplay+app+repo)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%23D546AB&lines=hello!;thank+you+for+visiting;movie_api5+app+repo)](https://git.io/typing-svg)
 
-movie_api5 is the client-side app to be used in conjunction with the <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
- demo: https://main--honeypotflixplay.netlify.app/.
+movie_api5 is api movie database to be used in conjunction with the 
+ demo: https://main--honeypotflixplay.netlify.app/. <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
-## 🛠️ Build Tools
+## 🛠️ Tools/Frameworks used
 
 Node.js
 JavaScript
 Express.js
 MongoDB
 Mongoose
+
 ### 👓 Views
 
 | View | Description |
