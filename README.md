@@ -60,7 +60,7 @@ https://main--honeypotflixplay.netlify.app/.
 <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
 
-https://github.com/xurros/movie_api5/blob/main/public/documentation.html (https://github.com/xurros/movie_api5/
+https://github.com/xurros/movie_api5/blob/main/public/documentation.html (https://xurros.github.io/movie_api5/public/documentation.html)
 
 
 <!-- Markdown link & img dfn's -->
@@ -70,8 +70,6 @@ https://github.com/xurros/movie_api5/blob/main/public/documentation.html (https:
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki
-
-
 
 
 
