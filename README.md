@@ -58,15 +58,24 @@ As a user, I want to be able to create a profile so I can save data about my fav
 
 ### 👓 Features:
 
-Returns a list of ALL movies to the user
-Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-Returns data about a genre (description) by name/title (e.g., “Thriller”)
-Returns data about a director (bio, birth year, death year) by name
-Allows new users to register
-Allows users to update their user info (username, password, email, date of birth)
-Allows users to add a movie to their list of favorites
-Allows users to remove a movie from their list of favorites
-Allows existing users to deregister
+▶️ Returns a list of ALL movies to the user
+</br>
+▶️ Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+</br>
+▶️ Returns data about a genre (description) by name/title (e.g., “Thriller”)
+</br>
+▶️ Returns data about a director (bio, birth year, death year) by name
+</br>
+▶️ Allows new users to register
+</br>
+▶️ Allows users to update their user info (username, password, email, date of birth)
+</br>
+▶️ Allows users to add a movie to their list of favorites
+</br> 
+▶️ Allows users to remove a movie from their list of favorites
+</br>
+▶️ Allows existing users to deregister
+</br>
 
 
 ## Meta
@@ -102,11 +111,7 @@ https://main--honeypotflixplay.netlify.app/.
 <img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/node.png" alt="Node.js" height="30" />  
    
 <img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/postman.png" alt="Postman" height="30" />  
-
-  
-<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/firebase.png" alt="Firebase" height="30" /> 
-  
-<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/jquery.png" alt="jQuery" height="30" />  
+ 
 </div> 
 
 
