@@ -64,23 +64,9 @@ https://main--honeypotflixplay.netlify.app/.
 (https://xurros.github.io/movie_api5/public/documentation.html)
 
 
-<!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
-
-
-
-
-
-
-
 ## 🛠️ Tools/Frameworks used
 
-Node.js
+Node.js <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 JavaScript
 Express.js
 MongoDB
