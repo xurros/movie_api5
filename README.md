@@ -54,30 +54,7 @@ As a user, I want to be able to create a profile so I can save data about my fav
 
     * Work in progress
 
-## Meta
-
-movie_api5 is an api movie database to be used in conjunction with the 
-https://main--honeypotflixplay.netlify.app/.
-<img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
-
-* documentation:
-(https://xurros.github.io/movie_api5/public/documentation.html)
-
-
-## 🛠️ Tools/Frameworks used
-
-<img src="https://github.com/xurros/assets/blob/main/node.png" width="45" />
-<img src="https://github.com/xurros/assets/blob/main/javascript.jpg" width="45" />
-<img src="https://github.com/xurros/assets/blob/main/express.png" width="45" />
-
-<img src="https://github.com/xurros/assets/blob/main/postman.png" width="45" />
-
-<img src="https://github.com/xurros/assets/blob/main/react.png" width="45" />
-
-### 👓 Description
-
-
-
+</br>
 
 ### 👓 Features:
 
@@ -90,6 +67,51 @@ Allows users to update their user info (username, password, email, date of birth
 Allows users to add a movie to their list of favorites
 Allows users to remove a movie from their list of favorites
 Allows existing users to deregister
+
+
+## Meta
+
+movie_api5 is an api movie database to be used in conjunction with the 
+https://main--honeypotflixplay.netlify.app/.
+<img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
+
+* documentation:
+(https://xurros.github.io/movie_api5/public/documentation.html)
+
+
+## 🛠️ Tools/Frameworks used
+
+<div align="center">  
+
+<img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/html.png" alt="HTML5" height="30" /> 
+  
+<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" height="30" />  
+
+
+<img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/js.png" alt="JavaScript" height="30" />  
+  
+  <img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/express.png" alt="Express" height="30" />  
+ 
+<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React" height="30" />  
+ 
+  
+<img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/mongodb.png" alt="MongoDB" height="30" />  
+  
+<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/bootstrap-plain.svg" alt="Bootstrap" height="30" />  
+  
+<img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/node.png" alt="Node.js" height="30" />  
+   
+<img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/postman.png" alt="Postman" height="30" />  
+
+  
+<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/firebase.png" alt="Firebase" height="30" /> 
+  
+<img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/jquery.png" alt="jQuery" height="30" />  
+</div> 
+
+
+
+
 
 
 
