@@ -77,14 +77,14 @@ As a user, I want to be able to create a profile so I can save data about my fav
 
 
 
-## Meta
+## Links
 
-movie_api5 is an api movie database to be used in conjunction with 
+➡️ demo:
 </br>
 https://main--honeypotflixplay.netlify.app/.
-<img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
 ➡️ documentation:
+</br>
 (https://xurros.github.io/movie_api5/public/documentation.html)
 
 
