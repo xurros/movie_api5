@@ -47,7 +47,7 @@ As a user, I want to be able to create a profile so I can save data about my fav
     * Tested the project from the terminal and navigating to my URL endpoints in a browser (via Postman)
 
 * movie_api4
-    * using react 
+    * using React 
     * implementing Authorization and Authentication
     
 * movie_api5
@@ -60,10 +60,7 @@ movie_api5 is an api movie database to be used in conjunction with the
 https://main--honeypotflixplay.netlify.app/.
 <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
-* Raw Documentation: 
-https://github.com/xurros/movie_api5/blob/main/public/documentation.html 
-
-* or 
+* documentation:
 (https://xurros.github.io/movie_api5/public/documentation.html)
 
 
