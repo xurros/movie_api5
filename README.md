@@ -59,23 +59,22 @@ As a user, I want to be able to create a profile so I can save data about my fav
 ### 👓 Features:
 
 * Returns a list of ALL movies to the user
-</br>
 * Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-</br>
+
 * Returns data about a genre (description) by name/title (e.g., “Thriller”)
-</br>
+
 * Returns data about a director (bio, birth year, death year) by name
-</br>
+
 * Allows new users to register
-</br>
+
 * Allows users to update their user info (username, password, email, date of birth)
-</br>
+
 * Allows users to add a movie to their list of favorites
-</br> 
+
 * Allows users to remove a movie from their list of favorites
-</br>
+
 * Allows existing users to deregister
-</br>
+
 
 
 ## Meta
@@ -84,7 +83,7 @@ movie_api5 is an api movie database to be used in conjunction with the
 https://main--honeypotflixplay.netlify.app/.
 <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
 
-* documentation:
+➡️ documentation:
 (https://xurros.github.io/movie_api5/public/documentation.html)
 
 
