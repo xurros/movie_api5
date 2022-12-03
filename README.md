@@ -66,11 +66,13 @@ https://main--honeypotflixplay.netlify.app/.
 
 ## 🛠️ Tools/Frameworks used
 
-Node.js <img src="https://github.com/xurros/assets/blob/main/netlify1.png" width="45" />
-JavaScript
-Express.js
-MongoDB
-Mongoose
+* Node.js <img src="https://github.com/xurros/assets/blob/main/node.png" width="45" />
+* JavaScript <img src="https://github.com/xurros/assets/blob/main/node.png" width="45" />
+* Express.js
+* MongoDB
+* Mongoose
+* Postman
+* React
 
 ### 👓 Description
 
