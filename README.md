@@ -52,7 +52,7 @@ As a user, I want to be able to create a profile so I can save data about my fav
     
 * movie_api5
 
-    * Work in progress
+    * WIP
 
 </br>
 
@@ -89,7 +89,7 @@ https://main--honeypotflixplay.netlify.app/.
 
 ## 🛠️ Tools/Frameworks used
 
-<div align="center">  
+<div align="left">  
 
 <img style="margin: 10px" src="https://github.com/xurros/assets/blob/main/html.png" alt="HTML5" height="30" /> 
   
